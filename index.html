@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Rose fans">
+	<meta name="viewport" content="width=device-width">
+	<title>Grapp, a graph app</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	
+	<script src="cytoscape.min.js"></script>
+
+	<h1 id=header>
+		Grapp
+	</h1>
+	
+	<div id=menu-bar>
+		<button type="button" onclick="setMode('av')">
+			Add vertices
+		</button>
+		
+		<button type="button" onClick="setMode('dv')">
+			Delete vertices
+		</button>
+	</div>
+	
+	<div id=cy></div>
+	
+	
+	<script src="script.js"></script>
+
+</body>
+</html>
