@@ -1,7 +1,12 @@
-// javascript enum
-const action = {
-	'dv':'dv',  // delete vertex
-	'av':'av',  // add vertex
+const actions = [
+	'del',  // delete object
+	'addV',  // add vertex
+	'addE',  // add edge, unimplemented
+	'colV',  // color vertex, unimplemented
+	'colE',  // color edge, unimplemented
+	'name',  // name object, unimplemented
+	'move',  // move object, unimplemented
+	'pan',  // pan screen, unimplemented
 }
 
 function setMode(m){
@@ -31,7 +36,10 @@ function add_vertex(xPos, yPos){
 		position: {x:xPos, y:yPos},
 		data: {id: 'n'+nodeIdCounter},
 	})
+	// a new vertex is given the label "n" + a number, e.g. "n5"
 	return nodeIdCounter++;
+	// increment the nodeIdCounter so that numbers are not reused,
+	// and return the value used to create this node
 }
 
 
@@ -50,6 +58,8 @@ function add_edge(node1, node2){
 		pannable: false,
 	})
 	return edgeIdCounter++;
+	// increment the edgeIdCounter so that numbers are not reused,
+	// and return the value used to create this edge
 }
 
 
@@ -57,11 +67,10 @@ function delete_vertex(node){
 	if (typeof node == "number"){
 		node = "n"+node;
 	}
-	console.log(node)
+	// ^ puts it into the proper format
 	
 	const x = cy.$id(node);
 	cy.remove(x);
-	//cy.$id(node).remove(x)
 }
 
 
@@ -75,7 +84,7 @@ function delete_vertex(node){
 cy.on('tap', function( evt ){
 	var tgt = evt.target || evt.cyTarget; // 3.x || 2.x
 
-	if( tgt === cy && mode == 'av'){
+	if( tgt === cy && mode == 'addV'){
 		add_vertex(evt.position.x, evt.position.y)
 	}
 	
@@ -84,10 +93,8 @@ cy.on('tap', function( evt ){
 
 cy.on('tap', 'node', function( evt ){
 	var tgt = evt.target || evt.cyTarget; // 3.x || 2.x
-	//console.log(tgt)
 	
-	if(mode == 'dv'){
-		//console.log(tgt.data)
+	if(mode == 'del'){
 		delete_vertex(tgt.data('id'))
 	}
 });
